@@ -7,7 +7,7 @@ function search(term, callback){
       'accept-encoding': 'json'
   }
   var options = {
-      url: 'https://idope.se/search/'+term+'?s=3', // o=1 Order?, m=-1 ???, p=1 Page?
+      url: 'https://idope.se/search/'+term+'?s=3&p='+page+'&m='+max+'&o='+order,
       method: 'GET',
       headers: headers
   }
@@ -20,6 +20,9 @@ function search(term, callback){
 
 var callbackArr = [];
 var term = null;
+var page = 1;
+var max = 1;
+var order = -1;
 
 process.argv.forEach(function (val, index, array) {
   if(index>1){
@@ -34,10 +37,13 @@ process.argv.forEach(function (val, index, array) {
         console.log("--");
         console.log("Usage: node idope.js [-s] <search_term> [options]");
         console.log("Options:");
-        console.log("-h \t \t Print this message and exit.");
-        console.log("-o \t \t Output to file. eg. -o ~/Documents/out.json");
-        console.log("-s \t \t Read search term. eg. -s \"Doctor Strange\"");
-        console.log("-v \t \t Verbose. Prints response to console.");
+        console.log("[-a] \t \t [a]ssortment eg. [-a] 1 (least seeders)");
+        console.log("[-h] \t \t Print [h]elp message and exit.");
+        console.log("[-m] \t \t [m]ax per page, any value different from 1 will equal 29 items");
+        console.log("[-o] \t \t [o]utput to file. eg. [-o] ~/Documents/out.json");
+        console.log("[-p] \t \t [p]age, eg. [-p] 2");
+        console.log("[-s] \t \t Read [s]earch term. eg. [-s] \"Doctor Strange\"");
+        console.log("[-v] \t \t [v]erbose. Prints response to console.");
         console.log("");
         process.exit();
         break;
@@ -65,6 +71,27 @@ process.argv.forEach(function (val, index, array) {
             console.log(data);
           });
           break;
+        case '-p':
+          if(typeof process.argv[index+1] == 'undefined'){
+            console.log("[-p] Page requies a value");
+            process.exit();
+          }
+          page = parseInt(process.argv[index+1]);
+          break;
+        case '-a':
+          if(typeof process.argv[index+1] == 'undefined'){
+            console.log("[-p] Page requies a value");
+            process.exit();
+          }
+          order = parseInt(process.argv[index+1]);
+          break;
+        case '-m':
+          if(typeof process.argv[index+1] == 'undefined'){
+            console.log("[-p] Page requies a value");
+            process.exit();
+          }
+          max = parseInt(process.argv[index+1]);
+          break;
     }
   }
 });
@@ -73,5 +100,5 @@ if(term){
   search(term, function(data){callbackArr.forEach(function(val){val(data);});});
 }
 else{
-  console.log("Need search term. e.g ")
+  console.log("Need search term. e.g [-s] \"Doctor Strange\"")
 }

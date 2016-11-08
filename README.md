@@ -10,6 +10,6 @@ Usage: node idope.js [-s] <search_term> [options]
 Options:
 -h Print this message and exit.
 -o Output to file. eg. -o ~/Documents/out.json
--s Read search term. eg. -s \"Doctor Strange\"
+-s Read search term. eg. -s "Doctor Strange"
 -v Verbose. Prints response to console.
 ```
