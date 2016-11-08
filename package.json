@@ -1,0 +1,15 @@
+{
+  "name": "idope",
+  "version": "1.0.0",
+  "description": "Command line tool to search the iDope torrent search engine.",
+  "main": "idope.js",
+  "dependencies": {
+    "request" : "latest"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kyron Taylor",
+  "license": "ISC"
+}
